@@ -1,3 +1,20 @@
+<?php
+$db = new PDO('mysql:host=localhost;dbname=exercici1','root','');
+$statement = $db->prepare("SELECT username FROM user WHERE id = ?");
+$statement->bindParam(1, $_COOKIE['user'], PDO::PARAM_INT);
+$statement->execute();
+$user = ($statement->fetch(PDO::FETCH_ASSOC));
+
+if (empty($user)) {
+    unset($_COOKIE['user']);
+    setcookie('user', '', time() - 3600);
+    header("Location: index.php");
+}
+else $user = $user['username'];
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,7 +72,7 @@
                     <a href="post.html">Post</a>
                 </li>
                 <li>
-                    <a href="user.php">User</a>
+                    <a href="user.php"><?php echo $user; ?></a>
                 </li>
                 <li>
                     <a href="logout.php">Log out</a>
@@ -90,14 +107,14 @@
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Title</label>
-                        <input type="text" class="form-control" placeholder="Title" name="title" id="title" required data-validation-required-message="Please write a title for your entry.">
+                        <input type="text" class="form-control" placeholder="Title" name="title" id="title" autocomplete="off" required data-validation-required-message="Please write a title for your entry.">
                         <p class="help-block text-danger"></p>
                     </div>
                 </div>
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Content</label>
-                        <textarea rows="5" class="form-control" placeholder="Write your entry here" name="content" id="content" required data-validation-required-message="Please write some content for your entry."></textarea>
+                        <textarea rows="5" class="form-control" placeholder="Write your entry here" autocomplete="off" name="content" id="content" required data-validation-required-message="Please write some content for your entry."></textarea>
                         <p class="help-block text-danger"></p>
                     </div>
                 </div>

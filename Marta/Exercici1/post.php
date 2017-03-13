@@ -7,13 +7,13 @@
  */
 
 if (empty($_POST)) {
-    header("Location: post.html");
+    header("Location: postpage.php");
     exit;
 }
 
 
 if (empty($_POST['title']) || empty($_POST['content'])) {
-    header("Location: post.html");
+    header("Location: postpage.php");
     exit;
 }
 
@@ -31,3 +31,5 @@ $statement->bindParam(4, date("Y-m-d H:i:s"), PDO::PARAM_STR);
 $statement->execute();
 
 header("Location: index.php");
+
+?>

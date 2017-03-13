@@ -1,3 +1,19 @@
+<?php
+    $db = new PDO('mysql:host=localhost;dbname=exercici1','root','');
+    $statement = $db->prepare("SELECT username FROM user WHERE id = ?");
+    $statement->bindParam(1, $_COOKIE['user'], PDO::PARAM_INT);
+    $statement->execute();
+    $user = ($statement->fetch(PDO::FETCH_ASSOC));
+
+    if (empty($user)) {
+        unset($_COOKIE['user']);
+        setcookie('user', '', time() - 3600);
+    }
+    else $user = $user['username'];
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,35 +66,13 @@
                 <li>
                     <a href="index.php">Home</a>
                 </li>
-                <li>
                     <?php
+
                         if (isset($_COOKIE['user'])) {
-                            $button = "<a href=\"post.html\">Post</a>";
+                            $button = "<li><a href=\"postpage.php\">Post</a></li><li><a href=\"user.php\">$user</a></li><li><a href=\"logout.php\">Log out</a></li>";
                         }
                         else {
-                            $button = "<a href=\"login.html\">Post</a>";
-                        }
-
-                        echo $button;
-                    ?>
-                </li>
-
-                    <?php
-                        if (isset($_COOKIE['user'])) {
-
-                            $db = new PDO('mysql:host=localhost;dbname=exercici1','root','');
-                            $statement = $db->prepare("SELECT username FROM user WHERE id = ?");
-                            $statement->bindParam(1, $_COOKIE['user'], PDO::PARAM_INT);
-                            $statement->execute();
-                            $user = ($statement->fetch(PDO::FETCH_ASSOC))['username'];
-
-                            if (empty($user))
-                                $button = "<li><a href=\"login.html\">Log in</a></li>";
-                             else
-                                 $button = "<li><a href=\"user.php\">$user</a></li><li><a href=\"logout.php\">Log out</a></li>";
-                        }
-                        else {
-                            $button = "<li><a href=\"login.html\">Log in</a></li>";
+                            $button = "<li><a href=\"login.html\">Post</a></li><li><a href=\"login.html\">Log in</a></li>";
                         }
 
                         echo $button;
@@ -114,7 +108,6 @@
 
             <?php
 
-            $db = new PDO('mysql:host=localhost;dbname=exercici1','root','');
             $statement = $db->prepare("SELECT * FROM entry ORDER BY created_at DESC LIMIT 10");
             $statement->execute();
             $results = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -136,11 +129,6 @@
                     $content = htmlentities($entry['content']);
                     $date = $entry['created_at'];
 
-                    $statement = $db->prepare("SELECT username FROM user WHERE id = ?");
-                    $statement->bindParam(1, $entry['user_id'], PDO::PARAM_INT);
-                    $statement->execute();
-                    $user = ($statement->fetch(PDO::FETCH_ASSOC))['username'];
-
                     $text = "<div class=\"post-preview\">
                 <a href=\"\" class=\"disabled\">
                     <h2 class=\"post-title\">
@@ -161,20 +149,7 @@
 
 
             ?>
-            <!--
-            <div class="post-preview">
-                <a href="" class="disabled">
-                    <h2 class="post-title">
-                        Man must explore, and this is exploration at its greatest
-                    </h2>
-                    <h3 class="post-subtitle">
-                        Problems look mighty small from 150 miles up
-                    </h3>
-                </a>
-                <p class="post-meta">Posted by Start Bootstrap on September 24, 2014</p>
-            </div>
-            <hr>
--->
+
         </div>
     </div>
 </div>
@@ -201,12 +176,6 @@
 <!-- Theme JavaScript -->
 <script src="js/clean-blog.min.js"></script>
 
-<style type="text/css">
-    .disabled {
-        pointer-events: none;
-        cursor: default;
-    }
-</style>
 
 </body>
 

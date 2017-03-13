@@ -1,3 +1,20 @@
+<?php
+    $db = new PDO('mysql:host=localhost;dbname=exercici1','root','');
+    $statement = $db->prepare("SELECT username FROM user WHERE id = ?");
+    $statement->bindParam(1, $_COOKIE['user'], PDO::PARAM_INT);
+    $statement->execute();
+    $user = ($statement->fetch(PDO::FETCH_ASSOC));
+
+    if (empty($user)) {
+        unset($_COOKIE['user']);
+        setcookie('user', '', time() - 3600);
+        header("Location: index.php");
+    }
+    else $user = $user['username'];
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,41 +67,18 @@
                 <li>
                     <a href="index.php">Home</a>
                 </li>
-                <li>
-                    <?php
-                    if (isset($_COOKIE['user'])) {
-                        $button = "<a href=\"post.html\">Post</a>";
-                    }
-                    else {
-                        $button = "<a href=\"login.html\">Post</a>";
-                    }
-
-                    echo $button;
-                    ?>
-                </li>
 
                 <?php
 
-                $user = "Cool Blog";
                 if (isset($_COOKIE['user'])) {
-
-                    $db = new PDO('mysql:host=localhost;dbname=exercici1','root','');
-                    $statement = $db->prepare("SELECT username FROM user WHERE id = ?");
-                    $statement->bindParam(1, $_COOKIE['user'], PDO::PARAM_INT);
-                    $statement->execute();
-                    $user = ($statement->fetch(PDO::FETCH_ASSOC))['username'];
-
-                    if (empty($user))
-                        $button = "<li><a href=\"login.html\">Log in</a></li>";
-                    else
-                        $button = "<li><a href=\"user.php\">$user</a></li><li><a href=\"logout.php\">Log out</a></li>";
+                    $button = "<li><a href=\"postpage.php\">Post</a></li><li><a href=\"user.php\">$user</a></li><li><a href=\"logout.php\">Log out</a></li>";
                 }
                 else {
-                    $button = "<li><a href=\"login.html\">Log in</a></li>";
+                    $button = "<li><a href=\"login.html\">Post</a></li><li><a href=\"login.html\">Log in</a></li>";
                 }
 
                 echo $button;
-                echo " </ul>
+                echo "</ul>
         </div>
     </div>
 </nav>
@@ -94,7 +88,7 @@
         <div class=\"row\">
             <div class=\"col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1\">
                 <div class=\"site-heading\">
-                    <h1>$user</h1>";
+                    <h1>$user's entries</h1>";
 
                     ?>
        <hr class="small">
@@ -112,10 +106,9 @@
 
             <?php
 
-            $user = $_COOKIE['user'];
-            $db = new PDO('mysql:host=localhost;dbname=exercici1','root','');
+            $userid = $_COOKIE['user'];
             $statement = $db->prepare("SELECT * FROM entry WHERE user_id = ? ORDER BY created_at DESC");
-            $statement->bindParam(1, $user, PDO::PARAM_INT);
+            $statement->bindParam(1, $userid, PDO::PARAM_INT);
             $statement->execute();
             $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
@@ -151,25 +144,10 @@
 
                     echo $text;
                 }
-
             }
 
-
             ?>
-            <!--
-            <div class="post-preview">
-                <a href="" class="disabled">
-                    <h2 class="post-title">
-                        Man must explore, and this is exploration at its greatest
-                    </h2>
-                    <h3 class="post-subtitle">
-                        Problems look mighty small from 150 miles up
-                    </h3>
-                </a>
-                <p class="post-meta">Posted by Start Bootstrap on September 24, 2014</p>
-            </div>
-            <hr>
--->
+
         </div>
     </div>
 </div>

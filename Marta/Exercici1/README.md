@@ -1,27 +1,27 @@
-# [Start Bootstrap](http://startbootstrap.com/) - [Clean Blog](http://startbootstrap.com/template-overviews/clean-blog/)
+# Cool Blog
 
-[Clean Blog](http://startbootstrap.com/template-overviews/clean-blog/) is a stylish, responsive blog theme for [Bootstrap](http://getbootstrap.com/) created by [Start Bootstrap](http://startbootstrap.com/). This theme features a blog homepage, about page, contact page, and an example post page along with a working PHP contact form.
+Autor: Marta Zapatero i Sentís, ls31285
 
-## Getting Started
+Assignatura: Projectes Web II
 
-To begin using this template, choose one of the following options to get started:
-* [Download the latest release on Start Bootstrap](http://startbootstrap.com/template-overviews/clean-blog/)
-* Clone the repo: `git clone https://github.com/BlackrockDigital/startbootstrap-clean-blog.git`
-* Fork the repo
+## Navegació
 
-## Bugs and Issues
+La navegació del blog és simple: A la part superior dreta hi ha els links a totes les pàgines a les que es pot accedir
+(aquest canvien segons si l'usuari està loguejat o no). A la part dreta hi ha el logo, que actua exactament igual que el link a "Home".
 
-Have a bug or an issue with this template? [Open a new issue](https://github.com/BlackrockDigital/startbootstrap-clean-blog/issues) here on GitHub or leave a comment on the [template overview page at Start Bootstrap](http://startbootstrap.com/template-overviews/clean-blog/).
+Els usuaris es poden registrar si fan click al link corresponent dins la pàgina de login.
 
-## Creator
+Un cop loguejat, si fa click al link amb el seu nom podrà veure les seves entrades.
 
-Start Bootstrap was created by and is maintained by **[David Miller](http://davidmiller.io/)**, Owner of [Blackrock Digital](http://blackrockdigital.io/).
+## Funcionament
 
-* https://twitter.com/davidmillerskt
-* https://github.com/davidtmiller
+Si no estan loguejats, el link a "Post" redirigeix als usuaris a la pantalla de Login.
+Tot i que no existeixi el botó, si s'intenta accedir directament a la pantalla personal de l'usuari se'l redirigirà a la pantalla principal.
+ 
+Els formularis de login, registre i post d'una entrada estan controlats i validats per HTML, Javascript i PHP.
 
-Start Bootstrap is based on the [Bootstrap](http://getbootstrap.com/) framework created by [Mark Otto](https://twitter.com/mdo) and [Jacob Thorton](https://twitter.com/fat).
 
-## Copyright and License
+## Problemes observats
 
-Copyright 2013-2016 Blackrock Digital LLC. Code released under the [MIT](https://github.com/BlackrockDigital/startbootstrap-clean-blog/blob/gh-pages/LICENSE) license.
+Els pocs problemes que he tingut han sigut relacionats amb el front-end, el Boostrap i la plantilla.
+(I vaig estar moltes hores encallada a la validació dels formularis amb HTML i Javascript, que no m'anava perque no estava linkejant el .js al .html)
