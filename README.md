@@ -1,4 +1,6 @@
-# MimikyuWebProjects
+# 20thWebProjects
+Repository to upload exercises and projects for Web Projects II
+
 Repo per exercicis i pràctica de Projectes Web II
 
 GRUP 20 - 
