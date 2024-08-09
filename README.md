@@ -1,6 +1,8 @@
 # 20thWebProjects
 Repository to upload exercises and projects for Web Projects II
 
+## Main project is in Marta > Exercici1
+
 Repo per exercicis i pràctica de Projectes Web II
 
 GRUP 20 - 
